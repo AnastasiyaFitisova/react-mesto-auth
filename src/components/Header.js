@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Link } from 'react-router-dom';
 import Mestologo from '../images/header/Mestologo.svg'
 
-function Header({userEmail, onLogout}) {
+function Header({ userEmail, onLogout }) {
 
   return (
     <header className="header">
@@ -11,22 +11,22 @@ function Header({userEmail, onLogout}) {
         alt="логотип страницы"
       />
       <nav className="header__links">
-        <p className="header__user-email">{userEmail}</p>
         <Route exact path="/">
+          <p className="header__user-email">{userEmail}</p>
           <Link
-          to="/sign-in"
-          className="header__logout"
-          onClick={onLogout}>Выйти</Link>
+            to="/sign-in"
+            className="header__logout"
+            onClick={onLogout}>Выйти</Link>
         </Route>
         <Route path="/sign-in">
-          <Link 
-          to="/sign-up"
-          className="header__link">Регистрация</Link>
+          <Link
+            to="/sign-up"
+            className="header__link">Регистрация</Link>
         </Route>
         <Route path="/sign-up">
-          <Link 
-          to="/sign-in"
-          className="header__link">Вход</Link>
+          <Link
+            to="/sign-in"
+            className="header__link">Вход</Link>
         </Route>
       </nav>
     </header>

@@ -147,8 +147,8 @@ function App() {
       return;
     }
     auth.getToken(jwt)
-    .then(({email, password}) => {
-      setUserInfo({email, password});
+    .then((data) => {
+      setUserInfo({email: data.email});
       setLoggedIn(true);
       history.push("/")
     })
@@ -164,10 +164,10 @@ function App() {
   //вход и регистрация, выход
   const onLogin = (data) => {
     return auth.authorize(data)
-      .then((res) => {
+      .then((token) => {
         setLoggedIn(true);
-        localStorage.setItem('jwt', res.token);
-        setUserInfo(res);
+        localStorage.setItem('jwt', token);
+        setUserInfo({email: data.email});
         history.push("/");
       })
       .catch((err) => {
@@ -179,6 +179,7 @@ function App() {
     return auth.register(data)
       .then(() => {
         setIsSuccess(true);
+        setIsTooltipPopupOpen(true);
         history.push("/sign-in");
       })
       .catch((err) => {
