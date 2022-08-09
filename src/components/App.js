@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
+import { Route, Switch, useHistory } from 'react-router-dom';
 import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
@@ -141,7 +141,7 @@ function App() {
   };
 
   //проверка токена
-  const checkToken = () => {
+  React.useEffect(() => {
     const jwt = localStorage.getItem('jwt');
     if (!jwt) {
       return;
@@ -155,16 +155,12 @@ function App() {
     .catch((err) => {
       console.log(err);
     })
-  };
-
-  React.useEffect(() => {
-    checkToken();
-  }, []);
+  }, [history]);
 
   //вход и регистрация, выход
   const onLogin = (data) => {
     return auth.authorize(data)
-      .then((token) => {
+      .then(({token}) => {
         setLoggedIn(true);
         localStorage.setItem('jwt', token);
         setUserInfo({email: data.email});
@@ -226,10 +222,6 @@ function App() {
           <Route path="/sign-in">
             <Login
               onLogin={onLogin} />
-          </Route>
-
-          <Route>
-            {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
           </Route>
 
         </Switch>

@@ -20,7 +20,7 @@ export const register = ({ email, password }) => {
     body: JSON.stringify({ email, password }),
   })
     .then((res) => {
-      checkResult(res);
+      return checkResult(res);
     });
 };
 
@@ -31,7 +31,7 @@ export const authorize = ({ email, password }) => {
     body: JSON.stringify({ email, password }),
   })
     .then((res) => {
-      checkResult(res);
+      return checkResult(res);
     });
 };
 
@@ -44,7 +44,7 @@ export const getToken = (token) => {
     },
   })
     .then((res) => {
-      checkResult(res);
+      return checkResult(res);
     });
 };
 

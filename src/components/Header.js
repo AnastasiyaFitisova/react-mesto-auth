@@ -11,8 +11,8 @@ function Header({ userEmail, onLogout }) {
         alt="логотип страницы"
       />
       <nav className="header__links">
+      <p className="header__user-email">{userEmail}</p>
         <Route exact path="/">
-          <p className="header__user-email">{userEmail}</p>
           <Link
             to="/sign-in"
             className="header__logout"
