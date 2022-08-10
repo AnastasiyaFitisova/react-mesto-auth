@@ -24,10 +24,7 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState(null);
   const [currentUser, setCurrentUser] = React.useState(null);
   const [cards, setCards] = React.useState([]);
-  const [userInfo, setUserInfo] = React.useState({
-    email: "",
-    password: "",
-  });
+  const [email, setEmail] = React.useState("");
   const [loggedIn, setLoggedIn] = React.useState(false);
   const history = useHistory();
   const [isTooltipPopupOpen, setIsTooltipPopupOpen] = React.useState(false);
@@ -147,8 +144,8 @@ function App() {
       return;
     }
     auth.getToken(jwt)
-    .then((data) => {
-      setUserInfo({email: data.email});
+    .then((res) => {
+      setEmail(res.data.email);
       setLoggedIn(true);
       history.push("/")
     })
@@ -163,11 +160,12 @@ function App() {
       .then(({token}) => {
         setLoggedIn(true);
         localStorage.setItem('jwt', token);
-        setUserInfo({email: data.email});
+        setEmail(email);
         history.push("/");
       })
       .catch((err) => {
         console.log(err);
+        setIsTooltipPopupOpen(true);
       })
   };
 
@@ -189,7 +187,8 @@ function App() {
     setLoggedIn(false);
     localStorage.removeItem('jwt');
     history.push("/sign-in");
-  }
+    setEmail("");
+  };
 
  
   return (
@@ -197,7 +196,7 @@ function App() {
       <CurrentUserContext.Provider value={currentUser}>
 
         <Header
-          userEmail={userInfo.email}
+          userEmail={email}
           onLogout={onLogout} />
 
         <Switch>
@@ -246,12 +245,6 @@ function App() {
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
           onUpdatePlace={handleAddPlaceSubmit} />
-
-        {/*  <PopupWithForm
-          name="card-del"
-          title="Вы уверены?"
-          button="Да">
-        </PopupWithForm> */}
 
         <InfoToolTip
           isOpen={isTooltipPopupOpen}
