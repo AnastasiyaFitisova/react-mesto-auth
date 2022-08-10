@@ -160,12 +160,13 @@ function App() {
       .then(({token}) => {
         setLoggedIn(true);
         localStorage.setItem('jwt', token);
-        setEmail(email);
+        setEmail(data.email);
         history.push("/");
       })
       .catch((err) => {
         console.log(err);
         setIsTooltipPopupOpen(true);
+        setIsSuccess(false);
       })
   };
 
