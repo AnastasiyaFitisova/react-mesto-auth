@@ -3,8 +3,7 @@ class Api {
     this._url = url;
     this._token = token;
     this._headers = {
-        'Content-type': 'application/json',
-        'Authorization': this._token
+        credentials: 'include',
       }
     };
 
@@ -91,7 +90,7 @@ class Api {
 
 };
 
-const api = new Api ('https://mesto.nomoreparties.co/v1/cohort-43', 
+const api = new Api ('http://localhost:4000', 
 '8636da29-c732-4db2-9071-001062507334');
 
 export default api;

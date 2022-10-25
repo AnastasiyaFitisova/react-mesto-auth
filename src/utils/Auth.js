@@ -1,4 +1,4 @@
-export const url = "https://auth.nomoreparties.co";
+export const url = "http://localhosh:4000";
 
 const checkResult = (res) => {
   if (res.ok) {
